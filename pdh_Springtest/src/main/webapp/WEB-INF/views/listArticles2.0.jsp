@@ -144,21 +144,16 @@ $(document).ready(function(){
 					<div class="search_box">
 					<form name="Frm" id="Frm" method="post">
 						<div class="sch_group fl">
-							<select id="condition" class="form-control" name="condition">
+							<select id="condition" name="condition">
 							
 				<option value="title" ${param.condition == 'title' ? 'selected' : ''}>제목</option> <!--  SearchVO의 정보와 PageVO의 정보가 list.jsp에 함께 파라미터로 보내지기 때문에, 컨트롤러에서 	if(condition.equals("title")) 라면,  -->
 				<option value="content" ${param.condition == 'content' ? 'selected' : ''}>내용</option>
 				<option value="writer" ${param.condition == 'writer' ? 'selected' : ''}>작성자</option>
 				<option value="titleContent" ${param.condition == 'titleContent' ? 'selected' : ''}>제목+내용</option>
-							<!-- 	<option value="total">전체검색</option>
-								<option value="title">거래처명</option>
-							    <option value="content">내용</option>
-								<option value="">거래처구분</option>
-								<option value="">담당자명</option>
-								<option value="">국가명</option> -->
+					
 							</select>
 							<input type="text" name="keyword" value="${param.keyword}" id="keywordInput" placeholder="검색어"/>
-							<input type="button" id="searchBtn"  value="검색">
+							<button type="button" id="searchBtn" class="btn bt_search"><span>검색</span></button>
 							
 						</div>
 						<p class="fr">
@@ -178,12 +173,11 @@ $(document).ready(function(){
 						<tr>
 							<th scope="col"><input type="checkbox" id="chkall" name="chkall" value="" /></th>
 							<th scope="col">번호</th>
-							<th scope="col">회사명</th>
-							<th scope="col">전화번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">첨부파일</th>
 							<th scope="col">핸드폰번호</th>
 							<th scope="col">이메일</th>
-							<th scope="col">사용여부</th>
-				
+							<th scope="col">조회수</th>
 							<th scope="col">등록일</th>
 						</tr>
 						</thead>
@@ -199,11 +193,12 @@ $(document).ready(function(){
 								${article.title}
 									 </a></td>	 
 							
-							<td>032-1234-1234</td>
-							<td>010-1234-1234</td>
-							<td>webmaster@admin.com</td>
-							<td><span class="btns btn_bdr1 btn_xs btnW40">사용</span></td>
-							<td>${article.writeDate}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>${article.viewCnt}</td>
+							<td><fmt:formatDate value="${article.writeDate}"
+							pattern="yyyy-MM-dd"/></td>
 						</tr>
 					<!-- 	<tr>
 							<td><input type="checkbox" id="chk2" name="chk2" value="" /></td>
@@ -224,33 +219,59 @@ $(document).ready(function(){
 					
 					<!-- 페이징 처리 부분  -->
 					
-					<div align="center" >
+					<!--  처음으로 마지막으로는 옛날에 작업했던 컴퓨터에 있으니 참고해서 만들것. -->
+					<!--  EditPlus 다운로드 -->
+					
+					<div class="paging" align="center" >
+					
+					<a href="#" class="page_bt first">첫페이지</a>
+					<a href="#" class="page_bt prev">이전 페이지 그룹</a>
 					<!--  이전 버튼 --> <!--  조건부로 활성/비활성 여부를 결정. -->
 					<c:if test="${pc.prev}"> <!--  이전버튼이 true일때만 등장. -->
-					<li class="page-item"><a class="page-link" href="<c:url value='/board/listArticles.do${pc.makeURI(pc.beginPage - 1)}'/>" 
-						style="background-color: #3232FF; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
+					<li class="page-item"><a class="page_bt prev" href="<c:url value='/board/listArticles2.0.do${pc.makeURI(pc.beginPage - 1)}'/>" 
+						>이전</a>
 					</li>
 					</c:if>
 
 					<!-- 페이지 버튼 -->
 					<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 						<!-- 1이 시작값 end가 끝값 -->
-						<li class="grid_item"><a
-							href="<c:url value='/board/listArticles.do${pc.makeURI(pageNum)}'/>"
-							class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" 
-							style="margin-top: 0; height: 40px; color: BLACK; border: 1px solid pink;">${pageNum}</a>
-						</li>
+						
+				<!-- 
+					<span class="on">
+							<a href="<c:url value='/board/listArticles2.0.do${pc.makeURI(pageNum)}'/>"
+						 	class="on ${(pc.paging.page == pageNum) ? 'page-active' : ''}" 
+							>${pageNum}</a>
+						</span>
+				 -->	
+				
+						<span class="on">
+							<a href="<c:url value='/board/listArticles2.0.do${pc.makeURI(pageNum)}'/>"
+						 	>${pageNum}</a>
+						</span>
+						
+						
 					</c:forEach>
+						
 
 					<!--  다음 버튼 -->
 					<c:if test="${pc.next}"> <!-- 이것도, next가 true일때만 등장. -->
-					<li class="page-item"><a class="page-link" href="<c:url value='/board/listArticles.do${pc.makeURI(pc.endPage + 1)}'/>"
-						style="background-color: #3232FF; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
+					<li class="page_bt next"><a class="page-link" href="<c:url value='/board/listArticles2.0.do${pc.makeURI(pc.endPage + 1)}'/>"
+						>다음</a>
 					</li>
 					</c:if>
+					
+					<a href="#" class="page_bt next">다음 페이지 그룹</a>
+					<a href="#" class="page_bt last">마지막페이지</a>
 				</div>
 				
-					<!-- 검색 버튼 -->
+			
+	
+				<div class="paging">
+						<a href="#" class="page_bt first">첫페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
+						<p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>
+						<a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막페이지</a>
+					</div>
 	
 	
 		
@@ -290,7 +311,7 @@ $(function() {
 		const condition = $("#condition option:selected").val(); //97번: id가 condition인데, option에 선택된애들의 value값을 읽어라. //SearchVO를 받기 때문에 멤버변수를 쓸 수 있다.
 		console.log("검색 조건: " + condition);
 		
-		location.href="/board/listArticles.do?keyword=" + keyword
+		location.href="/board/listArticles2.0.do?keyword=" + keyword
 				+"&condition=" + condition; //검색할때  $("#condition option:selected").val(); 에 의해서 각각의 value값들을 묻혀서 전송함.
 		
 	});

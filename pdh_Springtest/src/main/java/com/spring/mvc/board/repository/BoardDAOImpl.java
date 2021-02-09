@@ -138,7 +138,7 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 
 	@Override
 	public ArticleVO selectArticle(int articleNO) throws DataAccessException {
-		
+		sqlSession.update("mapper.board.updateViewCnt", articleNO);
 		return sqlSession.selectOne("mapper.board.selectArticle", articleNO);
 	}
 
@@ -155,6 +155,14 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 		
 	}
 
+	/*
+	 * @Override public void updateViewCnt(Integer articleNO) throws
+	 * DataAccessException {
+	 * 
+	 * sqlSession.update("mapper.board.updateViewCnt", articleNO);
+	 * 
+	 * }
+	 */
 
 
 

@@ -38,7 +38,7 @@ function readURL(input) {
     }
 }  
 function backToList(obj){
-  obj.action="${contextPath}/board/listArticles.do";
+  obj.action="${contextPath}/board/listArticles2.0.do";
   obj.submit();
 }
 
@@ -155,121 +155,18 @@ $(document).ready(function(){
 					
 										
 						<tbody>
+				
 						<tr>
-							<th scope="row">거래처코드<span class="es">필수입력</span></th>
-							<td><input type="text" id="DT002_01" name="DT002_01" value="123456" readonly /></td><!-- readonly / disabled 스타일 넣어놓음 별도 class 필요할때는 .readonly .disabled -->
-							<th scope="row">거래처구분</th>
-							<td>
-								<select id="DT002_02" name="DT002_02">
-									<option value="">매출처</option>
-									<option value="">매입처</option>
-									<option value="">전체</option>
-									<option value="">은행</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">국적구분</th>
-							<td>
-								<div class="radio_group">
-									<p class="radios">
-										<input type="radio" id="DT002_03_01" name="DT002_03" checked />
-										<label for="DT002_03_01">남자</label><span class="check"></span>
-									</p>
-									<p class="radios">
-										<input type="radio" id="DT002_03_02" name="DT002_03" />
-										<label for="DT002_03_02">여자</label><span class="check"></span>
-									</p>
-								</div>
-							</td>
-							<th scope="row">국가명</th>
-							<td><input type="text" id="DT002_04" name="DT002_04" /></td>
-						</tr>
-						<tr>
-							<th scope="row">거래처명</th>
+							<td width=30 align="center">
+						      제목
+						   </td>
 							<td><input type="text" id="DT002_05" name="title" /></td>
-							<th scope="row">대표전화번호</th>
-							<td><input type="text" id="DT002_07" name="DT002_07" /></td>
+					
 						</tr>
-						<tr>
-							<th scope="row">전화번호</th>
-							<td>
-								<input type="text" id="DT002_09_01" name="DT002_09_01" maxlength="4" value="" class="w20" /> - 
-								<input type="text" id="DT002_09_02" name="DT002_09_02" maxlength="4" value="" class="w20" /> - 
-								<input type="text" id="DT002_09_03" name="DT002_09_03" maxlength="4" value="" class="w20" />
-							</td>
-							<th scope="row">팩스번호</th>
-							<td>
-								<input type="text" id="DT002_10_01" name="DT002_10_01" maxlength="4" value="" class="w20" /> - 
-								<input type="text" id="DT002_10_02" name="DT002_10_02" maxlength="4" value="" class="w20" /> - 
-								<input type="text" id="DT002_10_03" name="DT002_10_03" maxlength="4" value="" class="w20" />
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">사업자번호</th>
-							<td><input type="text" id="DT002_11" name="DT002_11" /></td>
-							<th scope="row">업태</th>
-							<td><input type="text" id="DT002_12" name="DT002_12" /></td>
-						</tr>
-						<tr>
-							<th scope="row">이메일</th>
-							<td colspan="3">
-								<div class="email_in">
-									<input type="text" id="DT002_15_01" name="DT002_15_01" />
-									<span class="txt">@</span>
-									<input type="text" id="DT002_15_02" name="DT002_15_02" />
-									<select id="DT002_15_03" name="DT002_15_03">
-										<option value="">직접입력</option>
-										<option value="naver.com">naver.com</option>
-										<option value="daum.net">daum.net</option>
-										<option value="hotmail.com">hotmail.com</option>
-										<option value="nate.com">nate.com</option>
-										<option value="yahoo.co.kr">yahoo.co.kr</option>
-										<option value="paran.com">paran.com</option>
-										<option value="empas.com">empas.com</option>
-										<option value="dreamwiz.com">dreamwiz.com</option>
-										<option value="freechal.com">freechal.com</option>
-										<option value="lycos.co.kr">lycos.co.kr</option>
-										<option value="korea.com">korea.com</option>
-										<option value="gmail.com">gmail.com</option>
-										<option value="hanmir.com">hanmir.com</option>
-									</select>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">주소</th>
-							<td colspan="3">
-								<div class="addr_in">
-									<input type="text" id="DT002_16_01" name="DT002_16_01" maxlength="5" readonly />
-									<button type="button" class="btns primary"><span>우편번호</span></button>
-									<input type="text" id="DT002_16_02" name="DT002_16_02" readonly />
-									<input type="text" id="DT002_16_03" name="DT002_16_03" />
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">등록일</th>
-							<td>
-								<span class="icon_cal"><input type="text" title="dateVal" id="dateVal" name="dateVal" readonly value="" /></span> ~ 
-								<span class="icon_cal"><input type="text" title="dateVal" id="dateValend" name="dateValend" readonly value="" /></span>
-							</td>
-							<th scope="row">사용여부</th>
-							<td>
-								<div class="radio_group">
-									<p class="radios">
-										<input type="radio" id="DT002_19_01" name="DT002_19" checked />
-										<label for="DT002_19_01">사용</label><span class="check"></span>
-									</p>
-									<p class="radios">
-										<input type="radio" id="DT002_19_02" name="DT002_19" />
-										<label for="DT002_19_02">미사용</label><span class="check"></span>
-									</p>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">내용</th>
+						
+		
+						<tr width=30 align="center">
+							<td>내용</td>
 							<td colspan="3"><textarea id="cm_con" name="content" cols="90" rows="10"></textarea></td>
 						</tr>
 						<!-- <tr>
@@ -286,8 +183,18 @@ $(document).ready(function(){
 							</td>
 						</tr> -->
 						<tr>
-						<td> <input type="button" value="파일 추가" onClick="fn_addFile()"/></td>	
+						<td width=30 align="center">첨부파일</td>
+						
+						
+						<div class="file_input">
+						<td>
+						<label> 
+						 <input type="button" class="btns btn_bdr1 btn_mid" id="file_route" name="file_route" value="파일추가" onClick="fn_addFile()"/>
+						</label>
+						</div>
+						</td>	
 						</tr>
+						
 						<tr>
 	      				<td colspan="4"><div id="d_file"></div></td>
 	  					 </tr>
@@ -295,8 +202,8 @@ $(document).ready(function(){
 					</table>
 					<p class="btn_set">
 						<input  type="submit" value="저장" class="btns btn_st1 btn_mid">
-						<button type="button" class="btns btn_bdr1 btn_mid">취소</button>
-						<input type=button value="목록보기"onClick="backToList(this.form)" />
+						<button type="button" class="btns btn_bdr1 btn_mid" onClick="backToList(this.form)">취소</button>
+					<!-- 	<input type=button value="목록보기"onClick="backToList(this.form)" /> -->
 					</p>		
 				</div>
 			</div>

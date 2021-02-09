@@ -31,6 +31,9 @@ public interface BoardDAO {
 	public List selectImageFileList(int articleNO) throws DataAccessException;
 	public Integer countArticles(SearchVO search) throws DataAccessException;
 	
+	//게시물 조회수 상승처리
+    //void updateViewCnt(Integer articleNO);
+	
 	
 	
 	

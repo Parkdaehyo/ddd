@@ -17,10 +17,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
-
-
-   
 <!--  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>  -->
  
    <script
@@ -79,7 +75,10 @@
 	     if (input.files && input.files[0]) {
 	         var reader = new FileReader();
 	         reader.onload = function (e) {
-	             $('#preview').attr('src', e.target.result);
+	        	 
+	        	 var count = 0;
+	        	 $('#i_imageFileName'+count).attr('src', e.target.result);
+	        	 //$('#preview').attr('src', e.target.result);
 	         }
 	         reader.readAsDataURL(input.files[0]);
 	     }
@@ -145,13 +144,13 @@
 			<h2 class="skip_info">상단메뉴</h2>
 			<div class="innerwrap">
 				<ul id="menu" class="menu">
-					<li class="depth1-menu1"><a href="FN1001LS.html" class="on"><i class="fas fa-info-circle"></i> 기초정보</a>
+					<li class="depth1-menu1"><a href="${contextPath}/board/listArticles.do" class="on"><i class="fas fa-info-circle"></i> 게시판1.0</a>
 						<ul>
 							<li><a href="#">1-1</a></li>
 							<li><a href="#">1-2</a></li>
 						</ul>
 					</li>
-					<li class="depth1-menu2"><a href="FN1001VE.html"><i class="fas fa-user-edit"></i> 회원관리</a>
+					<li class="depth1-menu2"><a href="${contextPath}/board/listArticles2.0.do"><i class="fas fa-user-edit"></i> 게시판2.0</a>
 						<ul>
 							<li><a href="#">회원리스트</a></li>
 							<li><a href="#">회원리스트</a></li>
@@ -257,33 +256,35 @@ $(document).ready(function(){
 						</tr> --%>
 						</tbody>
 						
-						
-						 <c:if test="${not empty imageFileList && imageFileList!='null' }">
-	  				<c:forEach var="item" items="${imageFileList}" varStatus="status" >
-		   			 <tr>
-					    <td width="150" align="center"  rowspan="2">
-					      이미지${status.count }
-			 		  </td>
-			 		  <td>
-			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
-			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
+		 <c:if test="${not empty imageFileList && imageFileList!='null' }">
+                 <!-- 밖에다 써야함. -->
+			   <c:set var="count" value="0"/>
+	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+		    <tr>
+			    <td width="150" align="center" rowspan="2">
+			          이미지${status.count }
+			   </td>
+			   <td>
+			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />	
+			     <!-- 추가 --> 
+			     <c:set var="aa" value="preview${count }"/>
+			   <!--   <c:out value="${aa}" /> -->	
+			     <!-- id="preview"에서 ${aa}로 바꿈 -->				     	     
+			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="${aa}" /><br>
+			    
 			   </td>   
 			  </tr>  
 			  <tr>
-			    <td>
-			       <input class="selectimage" type="file"  name="imageFileName " id="i_imageFileName"  disabled onchange="readURL(this);"   />
+			    <td>  
+			    <!--  인자로  img 태그 id값도 보낸다. -->
+			       <input  class="selectimage" type="file"  name="imageFileName" id="i_imageFileName" disabled   onchange="readURL(this, '${aa}');"   />
 			    </td>
 			 </tr>
-		
-			 
-			 <!-- <td>
-			    <input  type="file"  name="imageFileName " id="i_imageFileName"  disabled  onchange="readURL(this);"   />
-			 </td>
-			 </tr> -->
-			 
+			 <!--  추가 -->
+			 <c:set var="count" value="${count +1 }" />
+			 <c:out value="${count }" />
 		</c:forEach>
  </c:if>
- 	   
 
 					</table>
 					
@@ -291,17 +292,17 @@ $(document).ready(function(){
 	  				 <td colspan="2"   >
 	  				 <input id="modBtn" type=button value="수정반영하기">
 	      			<!--  <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  > --> <!--  frmArticle: 전송하는 form의 name -->
-           				<input type=button value="취소"  onClick="backToList(frmArticle)">
+           				<input type=button value="취소" onClick="backToList(frmArticle)">
 	   				</td> 
 					 </tr>
 					<p class="btn_set">
 						<button type="button" class="btns btn_st1 btn_mid">저장</button>
-						<button type="button" class="btns btn_bdr1 btn_mid">취소</button>
+						<button type="button" id="list-btn" class="btns btn_bdr1 btn_mid">취소</button>
 						
 						 <tr id="tr_btn">
 					<!--   <input type=button value="수정하기" onClick="fn_enable(this.form)">   -->
 				  <input id="button1" type=button value="수정하기">  
-				   	 <input id="list-btn" type=button value="리스트로 돌아가기">
+				   	 <!-- <input id="list-btn" type=button value="리스트로 돌아가기"> -->
 						  <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
 					    </tr>
 					    
@@ -321,7 +322,7 @@ $(document).ready(function(){
 $(function() {
 	
 	$("#button1").click(function(){ 
-		alert("버튼1을 누르셨습니다.");
+		//alert("버튼1을 누르셨습니다.");
 		 document.getElementById("i_title").disabled=false; //활성화
 		 document.getElementById("i_content").disabled=false;
 	$(".selectimage").attr('disabled', false);
@@ -346,16 +347,46 @@ $(function() {
 	
 	$("#list-btn").click(function () {
 		console.log("목록 버튼이 클릭됨!"); //${contextPath}
-		location.href='/board/listArticles.do?page=${p.page}'
+		location.href='/board/listArticles2.0.do?page=${p.page}'
 				+ '&countPerPage=${p.countPerPage}';
 		
 		
 	});
 	
 	
+	  var count = 0;
+ 	  
+	  $("#i_imageFileName").click(function() {
+		    
 	
-	
-	
+		 	//$("#i_imageFileName").attr('id', 'i_#imageFileName'+ count++);
+		 	
+		 	   var active = document.getElementById("i_imageFileName");
+		 	   active.id = 'i_imageFileName' + count++;
+		 	   
+		 		$('#i_imageFileName').attr({
+					'name' : 'imageFileName' + count++
+					});
+	  }); 	 
+	  
+	 
+	  /* 	
+	  	$(document).ready(function () {
+			$('#i_imageFileName').click(function () {
+				
+			
+				var count = 0;
+				
+				$('#i_imageFileName').attr({
+				//'name' : 'imageFileName' + count++;
+				'id'   : 'imageFileName' + conut++;
+	 			});
+			
+			});
+		}); 
+		 */
+		 
+		
 	
 }); //end jQuery 
 

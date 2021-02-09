@@ -10,6 +10,7 @@
 		<result property="content" column="content" />
 		<result property="writeDate" column="writeDate" />
 		<result property="imageFileName" column="imageFileName" />
+		<result property="viewCnt" column="view_cnt"/>
 	</resultMap>
 
 	<resultMap id="imgResult" type="imageVO">
@@ -37,6 +38,7 @@
 		</if>
 	</sql>
 
+	<!-- listArticles2.0.do -->
 	<select id="selectAllArticlesList" resultMap="articlesResult">
 
       SELECT *
@@ -151,6 +153,22 @@
 		<include refid="search" />
 
 	</select>
+	
+	<update id="updateViewCnt">
+		UPDATE t_board 
+		SET view_cnt = view_cnt + 1 
+		WHERE articleNO = #{articleNO}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

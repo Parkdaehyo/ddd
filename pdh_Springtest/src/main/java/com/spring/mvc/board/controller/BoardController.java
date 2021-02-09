@@ -71,28 +71,35 @@ public class BoardController {
 		
 	}
 	
-
-	/*
-	 * @GetMapping("/list") public String list(Model model) { List<BoardVO> list =
-	 * service.getArticleList(); list.forEach(article ->
-	 * System.out.println(article)); model.addAttribute("articles", list);
-	 * System.out.println("됬나?");
-	 * 
-	 * return ""; }
-	 */
+	@RequestMapping(value= "/board/listArticles2.0.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String listArticles2(HttpServletRequest request, HttpServletResponse response, Model model, SearchVO search) throws Exception {
 	
-//	// 게시판 리스트
-//	@RequestMapping(value ="/adminA/board/FN1001LS" , method = RequestMethod.GET)
-//	public String FN1001LS(Model model) {
-//		
-//		List<BoardVO> list = boardService.getArticleList();
-//		list.forEach(article -> System.out.println(article));
-//		model.addAttribute("articles", list);
-//		System.out.println("됬나?");
-//		
-//		
-//		return "FN1001LS";
-//	}
+		String condition = search.getCondition();
+		
+		System.out.println("URL: /board/listArticles.do -> result: ");
+		System.out.println("parameter(페이지번호) : " + search.getPage() +"번");
+		System.out.println("검색 조건: " + condition);
+		System.out.println("검색어: " + search.getKeyword());
+	
+		PageCreator pc = new PageCreator();
+		pc.setPaging(search);
+		
+		List <ArticleVO>articlesList = boardService.listArticles(search);
+		pc.setArticleTotalCount(boardService.countArticles(search));
+		
+		model.addAttribute("articlesList", articlesList);
+		model.addAttribute("pc" , pc);
+		
+		return "listArticles2.0";
+		
+	}
+	
+	// 게시판 리스트
+	@RequestMapping(value ="/adminA/board/FN1001LS" , method = RequestMethod.GET)
+	public String FN1001LS() {
+		
+		return "FN1001LS";
+	}
 	
 //	//글쓰기 페이지 진입
 //	@RequestMapping(value ="/adminA/board/FN1001WR" , method = RequestMethod.GET)
@@ -359,7 +366,7 @@ public class BoardController {
 			       }
 		       }
 		       message = "<script>";
-			   message += " alert('���� �����߽��ϴ�.');";
+			   message += " alert('이미지 수정');";
 			   System.out.println("Controller의 articleMap" + articleMap);
 			   message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
 			   message +=" </script>";
@@ -375,7 +382,7 @@ public class BoardController {
 			    	  }
 			      }
 		      message = "<script>";
-		      message += " alert('실패');";
+		      message += " alert('이미지수정2');";
 			  System.out.println("Controller의 articleMap22" + articleMap);
 			  message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
 			  message +=" </script>";
