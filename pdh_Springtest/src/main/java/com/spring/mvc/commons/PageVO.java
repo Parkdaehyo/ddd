@@ -5,6 +5,11 @@ public class PageVO {
 	private Integer page;//사용자가 요청한 페이지 번호
 	private Integer countPerPage;//한 페이지당 들어갈 게시물의 수
 	
+	//PageVO를 field로 만드는것도 괜찮지만 상속을했다?
+	//단순히 페이징 기능만 필요하면 PageVO, 검색+페이징 = SearchVO 사용
+	private String keyword;
+	private String condition;
+	
 	
 	/*아까 왜 list.jsp에 접속했을때 nullpointerException이 떴을까? 
 	  페이지번호를 주지 않았기 때문에 무슨 페이지를 열어야 할지 몰랐기 때문이다.
@@ -45,13 +50,24 @@ public class PageVO {
 		}
 		this.countPerPage = countPerPage;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "PageVO [page=" + page + ", countPerPage=" + countPerPage + "]";
+	public String getKeyword() {
+		return keyword;
 	}
-	
-	
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
 
 }
 

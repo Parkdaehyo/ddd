@@ -22,8 +22,8 @@ public class PageCreator {
 		UriComponents ucp = UriComponentsBuilder.newInstance()
 							.queryParam("page", page) //queryParam: 파라미터를 넘겨줌.
 							.queryParam("countPerPage", paging.getCountPerPage())
-							.queryParam("keyword" , ((SearchVO)paging).getKeyword())
-							.queryParam("condition", ((SearchVO)paging).getCondition())
+							.queryParam("keyword" , paging.getKeyword())
+							.queryParam("condition", paging.getCondition())
 							.build();
 		
 		return ucp.toUriString();

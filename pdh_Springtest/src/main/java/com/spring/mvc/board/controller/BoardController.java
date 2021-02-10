@@ -34,7 +34,6 @@ import com.spring.mvc.board.model.ImageVO;
 import com.spring.mvc.board.service.BoardService;
 import com.spring.mvc.commons.PageCreator;
 import com.spring.mvc.commons.PageVO;
-import com.spring.mvc.commons.SearchVO;
 import com.spring.mvc.board.model.ArticleVO;
 
 
@@ -49,20 +48,20 @@ public class BoardController {
 	
 	
 	@RequestMapping(value= "/board/listArticles.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String listArticles(HttpServletRequest request, HttpServletResponse response, Model model, SearchVO search) throws Exception {
+	public String listArticles(HttpServletRequest request, HttpServletResponse response, Model model, PageVO page) throws Exception {
 	
-		String condition = search.getCondition();
+		String condition = page.getCondition();
 		
 		System.out.println("URL: /board/listArticles.do -> result: ");
-		System.out.println("parameter(페이지번호) : " + search.getPage() +"번");
+		System.out.println("parameter(페이지번호) : " + page.getPage() +"번");
 		System.out.println("검색 조건: " + condition);
-		System.out.println("검색어: " + search.getKeyword());
+		System.out.println("검색어: " + page.getKeyword());
 	
 		PageCreator pc = new PageCreator();
-		pc.setPaging(search);
+		pc.setPaging(page);
 		
-		List <ArticleVO>articlesList = boardService.listArticles(search);
-		pc.setArticleTotalCount(boardService.countArticles(search));
+		List <ArticleVO>articlesList = boardService.listArticles(page);
+		pc.setArticleTotalCount(boardService.countArticles(page));
 		
 		model.addAttribute("articlesList", articlesList);
 		model.addAttribute("pc" , pc);
@@ -72,20 +71,20 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value= "/board/listArticles2.0.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String listArticles2(HttpServletRequest request, HttpServletResponse response, Model model, SearchVO search) throws Exception {
+	public String listArticles2(HttpServletRequest request, HttpServletResponse response, Model model, PageVO page) throws Exception {
 	
-		String condition = search.getCondition();
+		String condition = page.getCondition();
 		
 		System.out.println("URL: /board/listArticles.do -> result: ");
-		System.out.println("parameter(페이지번호) : " + search.getPage() +"번");
+		System.out.println("parameter(페이지번호) : " + page.getPage() +"번");
 		System.out.println("검색 조건: " + condition);
-		System.out.println("검색어: " + search.getKeyword());
+		System.out.println("검색어: " + page.getKeyword());
 	
 		PageCreator pc = new PageCreator();
-		pc.setPaging(search);
+		pc.setPaging(page);
 		
-		List <ArticleVO>articlesList = boardService.listArticles(search);
-		pc.setArticleTotalCount(boardService.countArticles(search));
+		List <ArticleVO>articlesList = boardService.listArticles(page);
+		pc.setArticleTotalCount(boardService.countArticles(page));
 		
 		model.addAttribute("articlesList", articlesList);
 		model.addAttribute("pc" , pc);
@@ -217,11 +216,11 @@ public class BoardController {
 	  	//다중이미지 보여주기
 		@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 		public String viewArticle(@RequestParam("articleNO") int articleNO,
-				  HttpServletRequest request, HttpServletResponse response, Model model, SearchVO paging) throws Exception{
+				  HttpServletRequest request, HttpServletResponse response, Model model, PageVO page) throws Exception{
 		
 			Map articleMap=boardService.viewArticle(articleNO); //글 조회문
 			System.out.println("articleMap: " + articleMap);
-			model.addAttribute("p", paging);
+			model.addAttribute("p", page);
 			model.addAttribute("articleMap", articleMap);
 			return "viewArticle";
 		}

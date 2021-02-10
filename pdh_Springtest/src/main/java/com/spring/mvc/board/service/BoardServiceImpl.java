@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.mvc.board.repository.BoardDAO;
 import com.spring.mvc.commons.PageVO;
-import com.spring.mvc.commons.SearchVO;
 import com.spring.mvc.board.model.ArticleVO;
 import com.spring.mvc.board.model.ImageVO;
 
@@ -22,15 +21,15 @@ public class BoardServiceImpl  implements BoardService{
 	@Autowired
 	BoardDAO boardDAO;
 	
-	public List<ArticleVO> listArticles(SearchVO search) throws Exception{
-		List<ArticleVO> articlesList =  boardDAO.selectAllArticlesList(search);
+	public List<ArticleVO> listArticles(PageVO page ) throws Exception{
+		List<ArticleVO> articlesList =  boardDAO.selectAllArticlesList(page);
         return articlesList;
 	}
 
 	@Override
-	public Integer countArticles(SearchVO search) {
+	public Integer countArticles(PageVO page) {
 		
-		return boardDAO.countArticles(search);
+		return boardDAO.countArticles(page);
 	}
 
 

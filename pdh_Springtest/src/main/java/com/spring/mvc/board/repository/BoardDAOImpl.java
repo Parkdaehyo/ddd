@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import com.spring.mvc.board.model.ArticleVO;
 import com.spring.mvc.board.model.ImageVO;
 import com.spring.mvc.commons.PageVO;
-import com.spring.mvc.commons.SearchVO;
 
 
 @Repository("boardDAO")
@@ -131,8 +130,8 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 	}
 
 	@Override
-	public List selectAllArticlesList(SearchVO search) throws DataAccessException {
-		List<ArticleVO> articlesList = sqlSession.selectList("mapper.board.selectAllArticlesList", search);
+	public List selectAllArticlesList(PageVO page) throws DataAccessException {
+		List<ArticleVO> articlesList = sqlSession.selectList("mapper.board.selectAllArticlesList", page);
 		return articlesList;
 	} 
 
@@ -144,9 +143,9 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 
 
 	@Override
-	public Integer countArticles(SearchVO search) throws DataAccessException {
+	public Integer countArticles(PageVO page) throws DataAccessException {
 	
-		return sqlSession.selectOne("mapper.board.countArticles", search);
+		return sqlSession.selectOne("mapper.board.countArticles", page);
 	}
 
 	@Override

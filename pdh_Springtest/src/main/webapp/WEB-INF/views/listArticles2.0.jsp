@@ -23,6 +23,12 @@
 <script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
 
 <style>
+
+.on {
+
+}
+
+
 .page-active {
 	background-color:#3232FF; 
 }
@@ -222,8 +228,8 @@ $(document).ready(function(){
 					<!--  처음으로 마지막으로는 옛날에 작업했던 컴퓨터에 있으니 참고해서 만들것. -->
 					<!--  EditPlus 다운로드 -->
 					
-					<div class="paging" align="center" >
 					
+						<%-- 
 					<a href="#" class="page_bt first">첫페이지</a>
 					<a href="#" class="page_bt prev">이전 페이지 그룹</a>
 					<!--  이전 버튼 --> <!--  조건부로 활성/비활성 여부를 결정. -->
@@ -233,7 +239,7 @@ $(document).ready(function(){
 					</li>
 					</c:if>
 
-					<!-- 페이지 버튼 -->
+				<!-- 페이지 버튼 -->
 					<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 						<!-- 1이 시작값 end가 끝값 -->
 						
@@ -260,16 +266,41 @@ $(document).ready(function(){
 						>다음</a>
 					</li>
 					</c:if>
-					
+					 
 					<a href="#" class="page_bt next">다음 페이지 그룹</a>
 					<a href="#" class="page_bt last">마지막페이지</a>
 				</div>
-				
+				--%>
 			
 	
-				<div class="paging">
+					<div class="paging">
 						<a href="#" class="page_bt first">첫페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
-						<p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>
+						<p>
+							<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
+								<!-- 
+									파라미터로 전달받은 페이지 번호와 forEach도는 변수의 값이 같으면 <span> 태그를 추가해주면 되고
+									그렇지 않으면 그냥 <a> 태그만 뿌려주면 됨.
+								 -->
+								<c:choose>
+									<c:when test="${pc.paging.page == pageNum}">
+										<a href="<c:url value='/board/listArticles2.0.do${pc.makeURI(pageNum)}'/>"><span class="on">${pageNum}</span></a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/board/listArticles2.0.do${pc.makeURI(pageNum)}'/>">${pageNum}</a>
+									</c:otherwise>
+								</c:choose>
+								<!-- <a href="<c:url value='/board/listArticles2.0.do${pc.makeURI(pageNum)}'/>"><span class="aa ${(pc.paging.page == pageNum) ? 'on' : ''}">${pageNum}</span></a>-->
+							<!-- 	<a href="#">2</a>
+								<a href="#">3</a>
+								<a href="#">4</a>
+								<a href="#">5</a>
+								<a href="#">6</a>
+								<a href="#">7</a>
+								<a href="#">8</a>
+								<a href="#">9</a>
+								<a href="#">10</a> -->
+							</c:forEach>
+						</p>
 						<a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막페이지</a>
 					</div>
 	
