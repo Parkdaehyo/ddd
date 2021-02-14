@@ -4,51 +4,56 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 포맷팅 관련 태그라이브러리(JSTL/fmt) --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"/>
 <%
   request.setCharacterEncoding("UTF-8");
-%> 
-
+%>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<title>글쓰기창</title>
-
+<title>글목록</title>
 <link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/default.css?ver=20.04.02" />
 <link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/common.css?ver=20.04.02" />
 <link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/content.css?ver=20.04.02" />
 <link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/button.css?ver=20.04.02" />
-<script src="resources/DR0001JS/jquery-1.11.1.min.js"></script>
-<script src="resources/DR0001JS/common.js"></script>
+<script src="/resources/DR0001JS/jquery-1.11.1.min.js"></script>
+<script src="/resources/DR0001JS/common.js"></script>
 <script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<script>
 
+<style>
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-	      var reader = new FileReader();
-	      reader.onload = function (e) {
-	        $('#preview').attr('src', e.target.result);
-        }
-       reader.readAsDataURL(input.files[0]);
-    }
-}  
-function backToList(obj){
-  obj.action="${contextPath}/board/listArticles2.0.do";
-  obj.submit();
+.on {
+
 }
 
-var cnt=1;
-function fn_addFile(){
-	  $("#d_file").append("<br>"+"<input type='file' name='file"+cnt+"' />");
-	  cnt++;
-}  
 
-</script>
+.page-active {
+	background-color:#3232FF; 
+}
+
+.grid_item {
+      
+        display: inline-block; /*이부분에 성질을 inline-block로 바꿔줘서 가로배치를 해줬다.*/
+        vertical-align: top; /*밑에 4px 여백을 없에는것*/
+}
+
+</style>
+
+
+ <script
+ 		src="https://code.jquery.com/jquery-3.5.0.min.js" 
+		integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+ 		crossorigin="anonymous"></script>
+        
+
+
+
+
+
 <!--[if lt IE 9]>
 <script src="../DR0001JS/html5shiv.js"></script>
 <![endif]-->
@@ -61,10 +66,22 @@ function fn_addFile(){
 			<div class="innerwrap">
 				<h1>타이틀</h1>
 				<div class="top_menu">
-					<p class="login_user"><span><strong>aaaa</strong> 님 반갑습니다.</span></p>
+					
 					<ul>
-						<li><a href="#" class="tmenu tm02"><span>로그아웃</span></a></li>
+					<c:if test="${empty member}">
+					<p class="login_user"><span><a href="<c:url value='/member/loginForm.do'/>"><strong>로그인</a></strong></span></p>
+					</c:if>
 					</ul>
+						
+					<c:if test="${not empty member}">
+					<p class="login_user"><span><strong>${member.id}</strong>님 반갑습니다.</span></p>
+					</c:if>
+					
+					<c:if test="${not empty member}">
+					<ul>
+						<li><a href="/member/logout.do" onclick="return confirm('로그아웃 하시겠습니까?')" class="tmenu tm02"><span>로그아웃</span></a></li>
+					</ul>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -73,13 +90,13 @@ function fn_addFile(){
 			<h2 class="skip_info">상단메뉴</h2>
 			<div class="innerwrap">
 				<ul id="menu" class="menu">
-					<li class="depth1-menu1"><a href="FN1001LS.html" class="on"><i class="fas fa-info-circle"></i> 기초정보</a>
+					<li class="depth1-menu1"><a href="${contextPath}/board/listArticles.do" class="on"><i class="fas fa-info-circle"></i> 게시판1.0</a>
 						<ul>
 							<li><a href="#">1-1</a></li>
 							<li><a href="#">1-2</a></li>
 						</ul>
 					</li>
-					<li class="depth1-menu2"><a href="FN1001VE.html"><i class="fas fa-user-edit"></i> 회원관리</a>
+					<li class="depth1-menu2"><a href="${contextPath}/board/listArticles2.0.do"><i class="fas fa-user-edit"></i> 게시판2.0</a>
 						<ul>
 							<li><a href="#">회원리스트</a></li>
 							<li><a href="#">회원리스트</a></li>
@@ -134,83 +151,5 @@ $(document).ready(function(){
 			});
     });
 });
-</script>	
-<title>글쓰기창</title>
-</head>
-<body>
-<h1 style="text-align:center">글쓰기</h1>
-  <form name="articleForm" method="post"  action="${contextPath}/board/addNewArticle.do"  enctype="multipart/form-data">
-	<div id="container">
-		<div class="innerwrap">
-			<div class="page_tits">
-				<h3>거래처관리</h3>
-				<p class="path"><strong>현재위치 :</strong> <span>기준정보관리</span> <span>거래처관리</span></p>
-			</div>
-			<div id="content">
-				<div class="section">
-					<table class="tb tb_row">
-					<colgroup>
-						<col style="width:12%;" /><col style="width:auto;" /><col style="width:12%;" /><col style="width:38%;" />
-					</colgroup>
-					
-										
-						<tbody>
-				
-						<tr>
-							<td width=30 align="center">
-						      제목
-						   </td>
-							<td><input type="text" id="DT002_05" name="title" /></td>
-					
-						</tr>
-						
-		
-						<tr width=30 align="center">
-							<td>내용</td>
-							<td colspan="3"><textarea id="cm_con" name="content" cols="90" rows="10"></textarea></td>
-						</tr>
-						<!-- <tr>
-							<th>첨부파일</th>
-							<td colspan="3">
-								<div class="file_input">
-									<input type="text" title="첨부파일" id="file_route" name="file_route" readonly />
-									<label> 첨부파일
-						
-										
-									</label>
-							
-								</div>
-							</td>
-						</tr> -->
-						<tr>
-						<td width=30 align="center">첨부파일</td>
-						
-						
-						<div class="file_input">
-						<td>
-						<label> 
-						 <input type="button" class="btns btn_bdr1 btn_mid" id="file_route" name="file_route" value="파일추가" onClick="fn_addFile()"/>
-						</label>
-						</div>
-						</td>	
-						</tr>
-						
-						<tr>
-	      				<td colspan="4"><div id="d_file"></div></td>
-	  					 </tr>
-						</tbody>
-					</table>
-					<p class="btn_set">
-						<input  type="submit" value="저장" class="btns btn_st1 btn_mid">
-						<button type="button" class="btns btn_bdr1 btn_mid" onClick="backToList(this.form)">취소</button>
-					<!-- 	<input type=button value="목록보기"onClick="backToList(this.form)" /> -->
-					</p>		
-				</div>
-			</div>
-		</div>
-	</div>
-	</form>
-	<footer>Copyright(c)네임즈.All rights reserved.</footer>
-</div>
-</body>
-</html>
+
+</script>

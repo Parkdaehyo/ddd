@@ -11,10 +11,17 @@
 	
 	<!-- 히카리 커넥션풀 빈 등록 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<!-- <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://tecc.anyro.com:3306/ein_test?serverTimezone=Asia/Seoul" />
 		<property name="username" value="ein_test" />
-		<property name="password" value="#db_ein_test#" />		
+		<property name="password" value="#db_ein_test#" />	 -->	
+		
+		<!--  allowMultiQueries=true -->
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring?serverTimezone=Asia/Seoul&amp;allowMultiQueries=true" />
+		<property name="username" value="root" />
+		<property name="password" value="1234" />
+		
 	</bean>
 	
 <!-- 	데이터 소스 객체 빈 등록 -->
@@ -25,8 +32,12 @@
 <!-- 	MyBatis 핵심객체 SqlSessionFactory 빈 등록 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds" />
+		
+		
 		<!-- <property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" /> -->
-				<property name="configLocation"
+		
+		
+		<property name="configLocation"
 			value="classpath:mybatis/model/modelConfig.xml" />
 		<property name="mapperLocations" value="classpath:mybatis/mappers/*.xml" />
 	</bean>

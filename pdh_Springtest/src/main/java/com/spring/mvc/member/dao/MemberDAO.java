@@ -15,7 +15,10 @@ public class MemberDAO {
 	
 	
 	public MemberVO loginById(MemberVO memberVO) throws DataAccessException{
+		System.out.println("리턴된 dao의 객체들" + memberVO.getId());
+		System.out.println("리턴된 dao의 객체들" + memberVO.getPwd());
 		  MemberVO vo = sqlSession.selectOne("mapper.member.loginById",memberVO);
+		  System.out.println("리턴된 dao의 vo: " + vo);
 		return vo;
 	}
 		

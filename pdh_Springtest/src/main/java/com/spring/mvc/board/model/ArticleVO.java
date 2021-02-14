@@ -20,17 +20,18 @@ public class ArticleVO {
 
 	private int  level;
 	private int articleNO;
-	private int parentNO;
 	private String title;
 	private String content;
 	private String imageFileName;
 	private String id;
 	private Date  writeDate;
 	private Integer viewCnt;
+	private int board_type;
+	
 	
 	
 	public ArticleVO() {
-		System.out.println("ArticleVO ������");
+	
 	}
 
 	public int getArticleNO() {
@@ -39,14 +40,6 @@ public class ArticleVO {
 
 	public void setArticleNO(int articleNO) {
 		this.articleNO = articleNO;
-	}
-
-	public int getParentNO() {
-		return parentNO;
-	}
-
-	public void setParentNO(int parentNO) {
-		this.parentNO = parentNO;
 	}
 
 	public int getLevel() {
@@ -90,16 +83,17 @@ public class ArticleVO {
 	
 	
 
+	public Date getWriteDate() {
+		return writeDate;
+	}
+
+
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public Date getWriteDate() {
-		return writeDate;
 	}
 
 	public void setWriteDate(Date writeDate) {
@@ -114,7 +108,20 @@ public class ArticleVO {
 		this.viewCnt = viewCnt;
 	}
 
+	public int getBoard_type() {
+		return board_type;
+	}
 
+	public void setBoard_type(int board_type) {
+		this.board_type = board_type;
+	}
+
+
+	
+	
+	
+	
+	
 	
 	
 	

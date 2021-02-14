@@ -12,14 +12,9 @@
   request.setCharacterEncoding("UTF-8");
 %> 
 
+<jsp:include page="header.jsp"/>
 
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<!--  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>  -->
- 
-   <script
+<script
  		src="https://code.jquery.com/jquery-3.5.0.min.js" 
 		integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
  		crossorigin="anonymous"></script>
@@ -102,110 +97,7 @@
 
 
 </style>
-<script>
 
-
-
-</script>
-
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<title>글보기</title>
-<link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/default.css?ver=20.04.02" />
-<link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/common.css?ver=20.04.02" />
-<link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/content.css?ver=20.04.02" />
-<link rel="stylesheet" type="text/css" href="/resources/DR0001CSS/button.css?ver=20.04.02" />
-<script src="resources/DR0001JS/jquery-1.11.1.min.js"></script>
-<script src="resources/DR0001JS/common.js"></script>
-<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
-<!--[if lt IE 9]>
-<script src="../DR0001JS/html5shiv.js"></script>
-<![endif]-->
-</head>
-
-<body>
-<div id="adm_wrap">
-	<header>
-		<div class="head">
-			<div class="innerwrap">
-				<h1>타이틀</h1>
-				<div class="top_menu">
-					<p class="login_user"><span><strong>aaaa</strong> 님 반갑습니다.</span></p>
-					<ul>
-						<li><a href="#" class="tmenu tm02"><span>로그아웃</span></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- 상단메뉴 -->
-		<div id="gnb">
-			<h2 class="skip_info">상단메뉴</h2>
-			<div class="innerwrap">
-				<ul id="menu" class="menu">
-					<li class="depth1-menu1"><a href="${contextPath}/board/listArticles.do" class="on"><i class="fas fa-info-circle"></i> 게시판1.0</a>
-						<ul>
-							<li><a href="#">1-1</a></li>
-							<li><a href="#">1-2</a></li>
-						</ul>
-					</li>
-					<li class="depth1-menu2"><a href="${contextPath}/board/listArticles2.0.do"><i class="fas fa-user-edit"></i> 게시판2.0</a>
-						<ul>
-							<li><a href="#">회원리스트</a></li>
-							<li><a href="#">회원리스트</a></li>
-							<li><a href="#">회원리스트</a></li>
-						</ul>
-					</li>
-					<li class="depth1-menu3"><a href="FN1001WR.html"><i class="fas fa-list-alt"></i> 대메뉴3</a></li>
-					<li class="depth1-menu4"><a href="FN1002LS.html"><i class="fas fa-chart-line"></i> 대메뉴4</a>
-						<ul>
-							<li><a href="#">4-1</a></li>
-							<li><a href="#">4-2</a></li>
-							<li><a href="#">4-3</a></li>
-						</ul>
-					</li>
-					<li class="depth1-menu4"><a href="calendar.html"><i class="fas fa-calendar-check"></i> 달력형</a></li>
-					<li class="depth1-menu5"><a href="FN1001VE.html"><i class="fas fa-info-circle"></i> VE</a></li>
-					<li class="depth1-menu6"><a href="FN1001WR.html"><i class="fas fa-info-circle"></i> WR</a></li>
-					<li class="depth1-menu6"><a href="FN1002LS.html"><i class="fas fa-info-circle"></i> LS2</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- // 상단메뉴 -->
-	</header>
-<link rel="stylesheet" href="<c:url value='resources/DR0001JS/jquery-ui-1.12.1.custom/jquery-ui.css'/>">
-<script src="../DR0001JS/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script>
-$(document).ready(function(){
-	// datePicker
-	$.datepicker.setDefaults({
-        dateFormat: 'yy-mm-dd',
-        showOn: "both", 
-        buttonImage: "../DR0001IMG/common/icon_cal.png", 
-		prevText: '이전 달',
-		nextText: '다음 달',
-		monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-		dayNames: ['일','월','화','수','목','금','토'],
-		dayNamesShort: ['일','월','화','수','목','금','토'],
-		dayNamesMin: ['일','월','화','수','목','금','토'],
-		showMonthAfterYear: true,
-		yearSuffix: '년',
-        buttonImageOnly: true 
-    });
-    $(function() {
-			$( "#dateVal" ).datepicker({
-				changeMonth: true,
-				changeYear: true
-			});
-			$( "#dateValend" ).datepicker({
-				changeMonth: true,
-				changeYear: true
-			});
-    });
-});
-</script>	
 
 
 <!--  frmArticle을 탄다. -->
@@ -259,24 +151,24 @@ $(document).ready(function(){
 		 <c:if test="${not empty imageFileList && imageFileList!='null' }">
                  <!-- 밖에다 써야함. -->
 			   <c:set var="count" value="0"/>
-	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+	 		 <c:forEach var="item" items="${imageFileList}" varStatus="status" >
 		    <tr>
 			    <td width="150" align="center" rowspan="2">
 			          이미지${status.count }
 			   </td>
 			   <td>
-			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />	
+			     <input  type= "hidden" name="originalFileName" value="${item.imageFileName }" />	
 			     <!-- 추가 --> 
 			     <c:set var="aa" value="preview${count }"/>
 			   <!--   <c:out value="${aa}" /> -->	
 			     <!-- id="preview"에서 ${aa}로 바꿈 -->				     	     
 			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="${aa}" /><br>
-			    
+			<%--     	    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="${aa}" /><br> --%>
 			   </td>   
 			  </tr>  
 			  <tr>
 			    <td>  
-			    <!--  인자로  img 태그 id값도 보낸다. -->
+			    <!--  인자로  img 태그 id값도 보낸다. --> <!-- 여기선 imageFileName이 board_type의 역할을 한다. -->
 			       <input  class="selectimage" type="file"  name="imageFileName" id="i_imageFileName" disabled   onchange="readURL(this, '${aa}');"   />
 			    </td>
 			 </tr>
@@ -288,8 +180,8 @@ $(document).ready(function(){
 
 					</table>
 					
-					 <tr id="tr_btn_modify"  align="center" >
-	  				 <td colspan="2"   >
+					 <tr id="tr_btn_modify"  align="center">
+	  				 <td colspan="2">
 	  				 <input id="modBtn" type=button value="수정반영하기">
 	      			<!--  <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  > --> <!--  frmArticle: 전송하는 form의 name -->
            				<input type=button value="취소" onClick="backToList(frmArticle)">
@@ -299,12 +191,18 @@ $(document).ready(function(){
 						<button type="button" class="btns btn_st1 btn_mid">저장</button>
 						<button type="button" id="list-btn" class="btns btn_bdr1 btn_mid">취소</button>
 						
-						 <tr id="tr_btn">
-					<!--   <input type=button value="수정하기" onClick="fn_enable(this.form)">   -->
-				  <input id="button1" type=button value="수정하기">  
-				   	 <!-- <input id="list-btn" type=button value="리스트로 돌아가기"> -->
-						  <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
+						
+				<!-- 
+				로그인하면 세션에 사용자 아이디가 저장되니, 글 상세창에서 해당글 작성자 아이디와 비교해서 같으면 표시되게 하면 됩니다. 
+				쉬운 가능입니다.
+				 -->		
+				<tr id="tr_btn">
+				<c:if test="${member.id == article.id || member.id == 'admin'}">
+				 <input id="button1" type=button value="수정하기">  
+				 <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
+					 </c:if>
 					    </tr>
+					    
 					    
 					</p>		
 				</div>
@@ -320,6 +218,13 @@ $(document).ready(function(){
 
 <script>
 $(function() {
+	
+	
+	
+	
+	
+	
+	
 	
 	$("#button1").click(function(){ 
 		//alert("버튼1을 누르셨습니다.");
@@ -358,18 +263,23 @@ $(function() {
  	  
 	  $("#i_imageFileName").click(function() {
 		    
-	
+		  $('#i_imageFileName').attr({
+				'name' : 'imageFileName' + count++
+				
+				});
+
 		 	//$("#i_imageFileName").attr('id', 'i_#imageFileName'+ count++);
 		 	
 		 	   var active = document.getElementById("i_imageFileName");
 		 	   active.id = 'i_imageFileName' + count++;
 		 	   
-		 		$('#i_imageFileName').attr({
-					'name' : 'imageFileName' + count++
-					});
+		 	
 	  }); 	 
-	  
+	   
 	 
+	   
+	   
+	   
 	  /* 	
 	  	$(document).ready(function () {
 			$('#i_imageFileName').click(function () {

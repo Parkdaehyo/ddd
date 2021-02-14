@@ -16,6 +16,8 @@ public class MemberService {
 	private MemberDAO memberDAO;
 	
 	public MemberVO login(MemberVO memberVO) throws Exception{
+		System.out.println("서비스에서 MemberVO의 객체가 들어왔을까?" + memberVO.getId());
+		System.out.println("서비스에서 MemberVO의 객체가 들어왔을까?" + memberVO.getPwd());
 		return memberDAO.loginById(memberVO);
 	}
 	

@@ -11,6 +11,7 @@
 		<result property="writeDate" column="writeDate" />
 		<result property="imageFileName" column="imageFileName" />
 		<result property="viewCnt" column="view_cnt"/>
+		<result property="id" column="id"/>
 	</resultMap>
 
 	<resultMap id="imgResult" type="imageVO">
@@ -92,8 +93,8 @@
 	<!-- 글쓰기 -->
 	<!--다중 이미지 추가 SQL문 -->
 	 <insert id="insertNewArticle" parameterType="java.util.Map"> 
-	 <![CDATA[ insert into t_board(articleNO, title, content, imageFileName) 
-	 values(#{articleNO}, #{title}, #{content}, null) 
+	 <![CDATA[ insert into t_board(articleNO, id, title, content, imageFileName) 
+	 values(#{articleNO}, #{id}, #{title}, #{content}, null) 
 	 ]]> 
 	</insert>
 	
@@ -122,16 +123,13 @@
 	
 
 		<update id="updateImage" parameterType="java.util.Map"> 
-		<foreach item="item" collection="list" separator=",">
-			UPDATE t_imageFile
-		    SET	imageFileName=#{item.imageFileName}
-		 		<where>
-	                articleNO =#{item.articleNO}
-	            </where>
+		<foreach item="item" collection="imageFileList" separator=";">
+			UPDATE t_imageFile  SET
+		   		imageFileName=#{item.imageFileName},
+		    	imageFileNO=#{item.imageFileNO}
+		 	where articleNO=#{item.articleNO}
 		</foreach> 
-		
-		</update> 
-		
+		</update>
 
 	<select id="selectNewImageFileNO" resultType="int">
     <![CDATA[
@@ -146,6 +144,14 @@
       where articleNO=#{articleNO}	
     ]]>
 	</select>
+	
+	
+	<select id="selectImageFileList3" resultMap="imgResult">
+    <![CDATA[
+      SELECT * from t_imageFile
+    ]]>
+	</select>
+	
 	
 	<select id="countArticles" resultType="int"> <!-- countArticles가 Integer 타입이라 resultType이 int이다. -->
 		SELECT COUNT(*)

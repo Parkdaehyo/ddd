@@ -2,6 +2,7 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
@@ -25,9 +26,6 @@
 	<!-- 정적 자원(html, css, img, js) 등을 URI 절대경로로 사용하기 위한 매핑처리  -->
     <resources mapping="/resources/**" location="/resources/" />
 	
-	
-	
-	
 	<context:component-scan base-package="com.spring.mvc" />
 	
 		<!-- 멀티파트 리졸버 -->
@@ -36,6 +34,15 @@
 		<beans:property name="maxInMemorySize" value="52428800" />
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
+	
+	<!-- Mapping 태그 요청이 들어오면 bean 클래스가 가로챈다. -->
+ 	<mvc:interceptors>
+      <mvc:interceptor>
+				 <mvc:mapping path="/*/*.do"/> <!--  모든 요청에 대해서 인터셉터를 수행한다. -->
+         <beans:bean class="com.spring.mvc.commons.interceptor.ViewNameInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
+
 	
 	
 	
