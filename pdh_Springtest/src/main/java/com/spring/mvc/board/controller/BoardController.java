@@ -216,7 +216,7 @@ public class BoardController {
 		}
 		
 		  
-		//글 수정과 다중이미지 수정하기.
+		//글 수정과 다중이미지 수정하기. ㅎㅎ
 		 @RequestMapping(value="/board/modArticle.do" ,method = RequestMethod.POST)
 		  @ResponseBody
 		  public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
