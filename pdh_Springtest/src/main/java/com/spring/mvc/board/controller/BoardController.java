@@ -47,7 +47,7 @@ public class BoardController {
 	@Autowired
 	private ArticleVO articleVO;
 	
-	
+		
 	@RequestMapping(value = "/board/*Form.do", method =  {RequestMethod.GET, RequestMethod.POST})
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName"); //인터셉터에서 요청객체의 URL인 viewName의 jsp를 세션에 바인딩 되었던 viewName 세션을 가져온다.
@@ -208,15 +208,20 @@ public class BoardController {
 		public String viewArticle(@RequestParam("articleNO") int articleNO,
 				  HttpServletRequest request, HttpServletResponse response, Model model, PageVO page) throws Exception{
 		
-			Map articleMap=boardService.viewArticle(articleNO); //글 조회문
+			
+			System.out.println("articleNO: " + articleNO);
+			List<ImageVO> imageFileList = boardService.selectImageFileList(articleNO);
+			
+			Map articleMap=boardService.viewArticle(articleNO); //조회될떄 aritlceNO가 이미 articleMap에 저장이 될탠데......
 			System.out.println("articleMap: " + articleMap);
+			model.addAttribute("imageFileList" , imageFileList);
 			model.addAttribute("p", page);
 			model.addAttribute("articleMap", articleMap);
 			return "viewArticle";
 		}
 		
-		  
-		//글 수정과 다중이미지 수정하기. ㅎㅎ
+
+		//글 수정과 다중이미지 수정하기. 
 		 @RequestMapping(value="/board/modArticle.do" ,method = RequestMethod.POST)
 		  @ResponseBody
 		  public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
@@ -230,9 +235,36 @@ public class BoardController {
 				articleMap.put(name,value);
 			}
 			
+			//List imageFileNO = null;
 			String _articleNO = (String) articleMap.get("articleNO");
 			int articleNO = Integer.parseInt(_articleNO);
+
+			
+			
+			ImageVO imagevo = new ImageVO();
+			
+			String _imageFileNO = (String) articleMap.get("imageFileNO");
+			int imageFileNO = Integer.parseInt(_imageFileNO);
+			
+			String _imageFileNO1 = (String) articleMap.get("imageFileNO1");
+			int imageFileNO1 = Integer.parseInt(_imageFileNO);
+			
+			String _imageFileNO2 = (String) articleMap.get("imageFileNO2");
+			int imageFileNO2 = Integer.parseInt(_imageFileNO);
+		
+			
+			
+			/*
+			 * String _imageFileNO = (int) articleMap.get("imageFileNO"); int imageFileNO =
+			 * Integer.parseInt(_imageFileNO);
+			 * 
+			 * System.out.println("imageFileNO는 몇?" + imageFileNO); //1이 넘어오네?
+			 */			
+			
+		    //List imageFileNO = boardService.selectImageFileNO(articleNO);
+		    //System.out.println("--------------------------------------imageFileNO: " + imageFileNO);
 					
+		
 			// 1. imageFileName -> imageFileList�� ������
 			// fileList�� upload�޼��带 ������ ��, List<String> fileList�� String�� ���� ��, Enhanced for�� �ٽ� List<ImageVO> imageFileList�� ����.
 			List<String> fileList= upload(multipartRequest);
@@ -241,19 +273,24 @@ public class BoardController {
 					for(String fileName : fileList) {
 						ImageVO imageVO = new ImageVO();
 						imageVO.setImageFileName(fileName);
-						
-						//�߰�
-					    imageVO.setArticleNO(articleNO);
-					    				
+					
+					    imageVO.setArticleNO(articleNO); //글번호를 가져온다..
+					    imageVO.setImageFileNO(imageFileNO);
+					    imageVO.setImageFileNO(imageFileNO1);
+					    imageVO.setImageFileNO(imageFileNO2);
+					    
 						imageFileList.add(imageVO);
 					}
 					
+					
 					articleMap.put("imageFileList", imageFileList);
+					//articleMap.put("articleNO" , articleNO);
 			}
 			//HttpSession session = multipartRequest.getSession();
 			//MemberVO memberVO = (MemberVO) session.getAttribute("member");
 			//String id = memberVO.getId();
 			//articleMap.put("id", id);		
+			
 			
 			//String articleNO=(String)articleMap.get("articleNO"); 
 			
@@ -263,11 +300,9 @@ public class BoardController {
 			responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		    try {
 		    	
-		    	String beforeservice =  (String) articleMap.get("imageFileName");
-		       System.out.println("서비스 갔다온 이전의" + beforeservice);
+		    	
 		       boardService.modArticle(articleMap);
-		    	String afterservice =  (String) articleMap.get("imageFileName");
-		       System.out.println("서비스 갔다온 이후의" + afterservice);
+		  
 		      
 		      Object map =  articleMap.get("imageFileList");
 		      System.out.println("오브젝트: " + map); //객체가 2개가 리턴되는거같은데
@@ -326,8 +361,6 @@ public class BoardController {
 		    return resEnt;
 		  }
 		  
-		
-		//수정문
 		
 		//////////////////////////////////////////////////////////////////////////////
 		

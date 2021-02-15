@@ -116,6 +116,14 @@
 					</colgroup>
 						<tbody>
 						
+					   <c:forEach var="image" items="${imageFileList}"> 
+						 <input type="hidden" name="imageFileNO" value="${image.imageFileNO}" />
+						 <input type="hidden" name="imageFileNO1" value="${image.imageFileNO}" />
+						 <input type="hidden" name="imageFileNO2" value="${image.imageFileNO}" />
+						 	
+						 	 	 	 	 	 	 
+						</c:forEach>
+						
  						<tr>
 						   <td width=30 align="center">
 						      글번호
@@ -124,6 +132,7 @@
 						    <input type="text"  value="${article.articleNO }"  disabled />
 						    <input type="hidden" name="articleNO" value="${article.articleNO}"  />
 						    <input type="hidden" name="page" value="${p.page}"/>
+						   
 						   </td>
 						  </tr>
 						<tr>

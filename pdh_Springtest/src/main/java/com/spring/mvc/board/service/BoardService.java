@@ -74,6 +74,17 @@ public class BoardService{
 		boardDAO.updateArticle(articleMap);
 	}
 	
+	public List selectImageFileList(int articleNO) throws DataAccessException {		
+		
+		return boardDAO.selectImageFileList(articleNO);
+	}
+	
+	public List selectImageFileNO(int articleNO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return boardDAO.selectImageFileNO(articleNO);
+	}
+	
+	
 	/*
 	//글 수정
 	@Override
@@ -88,7 +99,6 @@ public class BoardService{
 
 	
 	//다중 이미지
-
 	public Map viewArticle(int articleNO) throws Exception {
 		Map articleMap = new HashMap();
 		ArticleVO articleVO = boardDAO.selectArticle(articleNO); //글 조회문
@@ -96,6 +106,7 @@ public class BoardService{
 		List<ImageVO> imageFileList = boardDAO.selectImageFileList(articleNO);
 		articleMap.put("article", articleVO);
 		articleMap.put("imageFileList", imageFileList);
+		//articleMap.compute("imageFileNO", )
 		return articleMap;
 	}
    

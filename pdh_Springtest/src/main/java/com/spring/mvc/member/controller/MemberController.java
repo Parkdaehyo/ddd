@@ -25,6 +25,27 @@ public class MemberController {
 	@Autowired
 	private MemberVO memberVO;
 
+	
+//	@RequestMapping(value = "/member/index.do", method = RequestMethod.GET)
+//	private ModelAndView index(@RequestParam(value = "result", required = false) String result, // @RequestParam: 단일// 파라미터를 전달 받을때 사용한다.
+//							  @RequestParam(value = "action", required = false) String action, // listArticles2.0.jsp에서 전달 받은 action의 // 파라미터값을 저장한다
+//																				
+//			HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		
+//		String viewName = (String) request.getAttribute("viewName");
+//		HttpSession session = request.getSession();
+//		System.out.println("최초 action값: " + action);
+//		session.setAttribute("action", action); // isLogOn이 true가아닐때에 전달받은 action값을 세션에 바인딩을 한다.
+//		ModelAndView mav = new ModelAndView();
+//		System.out.println("result값: " + result); //최초 이 메서드를 글쓰기 버튼에서 이동됬을때는 null값. 그리고 아이디 또는 비번이 잘못되었을 경우 result값은 loginFailed
+//		mav.addObject("result", result); //보내고 
+//		mav.setViewName(viewName); //뷰페이지로 이동한다. 
+//		return mav;
+//	}
+//	
+	
+	
+	
 	// 로그인 페이지에 진입하는 메서드
 	//리다이렉트로 인해서 다시 한번 재요청이 된다. 그러나 이번엔 result에 loginFailed의 파라미터를 붙여진 상태이다.
 	@RequestMapping(value = "/member/*Form.do", method = RequestMethod.GET)

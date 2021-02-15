@@ -2,6 +2,7 @@ package com.spring.mvc.board.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,25 +35,24 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	@Override
+@Override
 public void updateArticle(Map articleMap) throws DataAccessException {
 		sqlSession.update("mapper.board.updateArticle", articleMap);
+		
 		System.out.println("BoardDAOImpl의 aritlceMap" + articleMap);
 		
-		int imageFileNO = selectNewImageFileNO();
 		List<ImageVO> imageFileList = (List) articleMap.get("imageFileList");
 		
-		 for(ImageVO imageVO : imageFileList) { // 팩트 1. imageFileList에 정상적으로 짱구와 고릴라가 넘어온다는것.
-		
-		String imageFileName = imageVO.getImageFileName();
-		int articleNO = imageVO.getArticleNO(); 
-		imageVO.setImageFileNO(++imageFileNO);
-		//regDate = imageVO.getRegDate();
-		  
+		for(ImageVO imageVO : imageFileList) { // 팩트 1. imageFileList에 정상적으로 짱구와 고릴라가 넘어온다는것.
+	
+		String imageFileName = imageVO.getImageFileName();	
+		int articleNO = imageVO.getArticleNO();
+		int imageFileNO = imageVO.getImageFileNO(); //imageFileNO를 int로 하니 다시 정상적으로 띄워졌다.
+	
 		 System.out.println("DAO까지 파일이름이 넘어왔는가?: " + imageFileName); //imageFileName의 객체가 2개가 넘어오는것을 확인했는데
-		 System.out.println("DAO:imageFileNO "+ imageFileNO); //36하고 //38
-		 System.out.println("DAO:articleNO " +articleNO); //41
-		 //System.out.println("DAO: " +regDate);
+		 System.out.println("DAO:imageFileNO 이미지번호: "+ imageFileNO); 
+		 System.out.println("DAO:articleNO: " +articleNO);
+	
 		 }
 		//sqlSession.update("mapper.board.updateImage", imageFileList); 원래꺼
 		 sqlSession.update("mapper.board.updateImage", articleMap); //팩트2. articleMap을 넘겨도 실제로 한개가 전부 수정이 될 뿐, 확실히 sql문까지 imageFileList으 객체 정보가 넘어간다는것.
@@ -66,8 +66,6 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 	}
 	*/
 	
-
-	
 	@Override
 	public int insertNewArticle(Map articleMap) throws DataAccessException {
 		int articleNO = selectNewArticleNO();
@@ -79,6 +77,8 @@ public void updateArticle(Map articleMap) throws DataAccessException {
    
 	@Override
 	public void insertNewImage(Map articleMap) throws DataAccessException {
+		
+		
 		List<ImageVO> imageFileList = (ArrayList)articleMap.get("imageFileList");
 		int articleNO = (Integer)articleMap.get("articleNO");
 		
@@ -128,6 +128,10 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 	public List selectImageFileList(int articleNO) throws DataAccessException {
 		List<ImageVO> imageFileList = null;
 		imageFileList = sqlSession.selectList("mapper.board.selectImageFileList",articleNO);
+		
+		System.out.println("imageFileList들의 객체:" + imageFileList);
+		
+		
 		return imageFileList;
 	}
 	
@@ -171,6 +175,13 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 	public void updateNewImage(Map articleMap) throws DataAccessException {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public List selectImageFileNO(int articleNO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.board.selectImageFileNO", articleNO);
 	}
 
 

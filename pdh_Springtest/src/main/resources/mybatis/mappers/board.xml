@@ -152,6 +152,15 @@
     ]]>
 	</select>
 	
+	<select id="selectImageFileNO" resultMap="imgResult" parameterType="int">
+    <![CDATA[
+      SELECT imageFileNO from t_imageFile
+       where articleNO=#{articleNO}	
+    ]]>
+	</select>
+	
+	
+	
 	
 	<select id="countArticles" resultType="int"> <!-- countArticles가 Integer 타입이라 resultType이 int이다. -->
 		SELECT COUNT(*)
