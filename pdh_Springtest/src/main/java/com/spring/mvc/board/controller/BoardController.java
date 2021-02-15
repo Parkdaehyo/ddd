@@ -275,6 +275,7 @@ public class BoardController {
 						imageVO.setImageFileName(fileName);
 					
 					    imageVO.setArticleNO(articleNO); //글번호를 가져온다..
+					    
 					    imageVO.setImageFileNO(imageFileNO);
 					    imageVO.setImageFileNO(imageFileNO1);
 					    imageVO.setImageFileNO(imageFileNO2);
