@@ -40,6 +40,14 @@ public class BoardService{
 
 	
 	
+	public List selectImageFileNO(int articleNO) throws DataAccessException {
+		System.out.println("서비스 selectImageFileNO articleNO: " + articleNO);
+	
+		return boardDAO.selectImageFileNO(articleNO);
+	}
+
+	
+	
 	
 	public List<ArticleVO> listArticles(PageVO page) throws Exception{
 		List<ArticleVO> articlesList =  boardDAO.selectAllArticlesList(page);
@@ -79,10 +87,7 @@ public class BoardService{
 		return boardDAO.selectImageFileList(articleNO);
 	}
 	
-	public List selectImageFileNO(int articleNO) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return boardDAO.selectImageFileNO(articleNO);
-	}
+
 	
 	
 	/*

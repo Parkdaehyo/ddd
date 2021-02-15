@@ -116,14 +116,14 @@
 					</colgroup>
 						<tbody>
 						
-					   <c:forEach var="image" items="${imageFileList}"> 
+				<%-- 	   <c:forEach var="image" items="${imageFileList}"> 
 						 <input type="hidden" name="imageFileNO" value="${image.imageFileNO}" />
 						 <input type="hidden" name="imageFileNO1" value="${image.imageFileNO}" />
 						 <input type="hidden" name="imageFileNO2" value="${image.imageFileNO}" />
 						 	
 						 	 	 	 	 	 	 
 						</c:forEach>
-						
+						 --%>
  						<tr>
 						   <td width=30 align="center">
 						      글번호

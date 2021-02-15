@@ -33,7 +33,7 @@ public interface BoardDAO {
 	public List selectImageFileList3() throws DataAccessException;
 	
 	public List selectImageFileNO(int articleNO) throws DataAccessException;
-	
+
 	public void deleteArticle(int articleNO) throws DataAccessException;
 
 	public Integer countArticles(PageVO page) throws DataAccessException;

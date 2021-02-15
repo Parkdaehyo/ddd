@@ -241,17 +241,18 @@ public class BoardController {
 
 			
 			
-			ImageVO imagevo = new ImageVO();
-			
-			String _imageFileNO = (String) articleMap.get("imageFileNO");
-			int imageFileNO = Integer.parseInt(_imageFileNO);
-			
-			String _imageFileNO1 = (String) articleMap.get("imageFileNO1");
-			int imageFileNO1 = Integer.parseInt(_imageFileNO);
-			
-			String _imageFileNO2 = (String) articleMap.get("imageFileNO2");
-			int imageFileNO2 = Integer.parseInt(_imageFileNO);
-		
+			/*
+			 * ImageVO imagevo = new ImageVO();
+			 * 
+			 * String _imageFileNO = (String) articleMap.get("imageFileNO"); int imageFileNO
+			 * = Integer.parseInt(_imageFileNO);
+			 * 
+			 * String _imageFileNO1 = (String) articleMap.get("imageFileNO1"); int
+			 * imageFileNO1 = Integer.parseInt(_imageFileNO);
+			 * 
+			 * String _imageFileNO2 = (String) articleMap.get("imageFileNO2"); int
+			 * imageFileNO2 = Integer.parseInt(_imageFileNO);
+			 */
 			
 			
 			/*
@@ -261,31 +262,29 @@ public class BoardController {
 			 * System.out.println("imageFileNO는 몇?" + imageFileNO); //1이 넘어오네?
 			 */			
 			
+			Object num = boardService.selectImageFileNO(articleNO);
+			
 		    //List imageFileNO = boardService.selectImageFileNO(articleNO);
 		    //System.out.println("--------------------------------------imageFileNO: " + imageFileNO);
 					
-		
+			// int no = boardService.selectImageFileNO(articleNO);
 			// 1. imageFileName -> imageFileList�� ������
 			// fileList�� upload�޼��带 ������ ��, List<String> fileList�� String�� ���� ��, Enhanced for�� �ٽ� List<ImageVO> imageFileList�� ����.
-			List<String> fileList= upload(multipartRequest);
+			List<String> fileList= upload(multipartRequest); //new ArrayList<ImageVO>();
 			List<ImageVO> imageFileList = new ArrayList<ImageVO>();
 			if(fileList != null && fileList.size()!=0) { //��ȿ���˻�. fileList ���� �־�� (�̹����� �÷���) �۵�)
 					for(String fileName : fileList) {
 						ImageVO imageVO = new ImageVO();
 						imageVO.setImageFileName(fileName);
-					
 					    imageVO.setArticleNO(articleNO); //글번호를 가져온다..
-					    
-					    imageVO.setImageFileNO(imageFileNO);
-					    imageVO.setImageFileNO(imageFileNO1);
-					    imageVO.setImageFileNO(imageFileNO2);
-					    
+					    imageVO.setImageFileNO(num);
+					    //mageVO.setImageFileNO(no);
 						imageFileList.add(imageVO);
 					}
 					
 					
 					articleMap.put("imageFileList", imageFileList);
-					//articleMap.put("articleNO" , articleNO);
+					articleMap.put("articleNO" , articleNO);
 			}
 			//HttpSession session = multipartRequest.getSession();
 			//MemberVO memberVO = (MemberVO) session.getAttribute("member");

@@ -152,7 +152,7 @@
     ]]>
 	</select>
 	
-	<select id="selectImageFileNO" resultMap="imgResult" parameterType="int">
+	<select id="selectImageFileNO" resultMap="imgResult">
     <![CDATA[
       SELECT imageFileNO from t_imageFile
        where articleNO=#{articleNO}	
