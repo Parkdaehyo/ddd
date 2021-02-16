@@ -253,7 +253,8 @@ public class BoardController {
 			 * String _imageFileNO2 = (String) articleMap.get("imageFileNO2"); int
 			 * imageFileNO2 = Integer.parseInt(_imageFileNO);
 			 */
-			
+		
+	
 			
 			/*
 			 * String _imageFileNO = (int) articleMap.get("imageFileNO"); int imageFileNO =
@@ -262,29 +263,35 @@ public class BoardController {
 			 * System.out.println("imageFileNO는 몇?" + imageFileNO); //1이 넘어오네?
 			 */			
 			
-			Object num = boardService.selectImageFileNO(articleNO);
-			
 		    //List imageFileNO = boardService.selectImageFileNO(articleNO);
 		    //System.out.println("--------------------------------------imageFileNO: " + imageFileNO);
 					
-			// int no = boardService.selectImageFileNO(articleNO);
+			List<Integer> imageFileNO= boardService.selectImageFileNO(articleNO);
 			// 1. imageFileName -> imageFileList�� ������
 			// fileList�� upload�޼��带 ������ ��, List<String> fileList�� String�� ���� ��, Enhanced for�� �ٽ� List<ImageVO> imageFileList�� ����.
-			List<String> fileList= upload(multipartRequest); //new ArrayList<ImageVO>();
+			List<String> fileList= upload(multipartRequest);
 			List<ImageVO> imageFileList = new ArrayList<ImageVO>();
 			if(fileList != null && fileList.size()!=0) { //��ȿ���˻�. fileList ���� �־�� (�̹����� �÷���) �۵�)
+					
+					int num = 0;
+					/*
+					 * for (int i = 0 ; i < fileList.size(); i++) { fileList[i] }
+					 */
 					for(String fileName : fileList) {
 						ImageVO imageVO = new ImageVO();
 						imageVO.setImageFileName(fileName);
+					
 					    imageVO.setArticleNO(articleNO); //글번호를 가져온다..
-					    imageVO.setImageFileNO(num);
-					    //mageVO.setImageFileNO(no);
+					    
+					    imageVO.setImageFileNO(imageFileNO.get(num++));
+					    
 						imageFileList.add(imageVO);
+						
 					}
 					
 					
 					articleMap.put("imageFileList", imageFileList);
-					articleMap.put("articleNO" , articleNO);
+					//articleMap.put("articleNO" , articleNO);
 			}
 			//HttpSession session = multipartRequest.getSession();
 			//MemberVO memberVO = (MemberVO) session.getAttribute("member");

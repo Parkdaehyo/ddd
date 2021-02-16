@@ -7,17 +7,20 @@ import java.util.List;
 
 public class ImageVO {
 	
-		private int imageFileNO;
+		private Integer imageFileNO;
 		private String imageFileName;
 		private Date regDate;
 		private int articleNO;
 		
-		public int getImageFileNO() {
+	
+
+		public Integer getImageFileNO() {
 			return imageFileNO;
 		}
-		public void setImageFileNO(Object num) {
-			this.imageFileNO = (int) num;
+		public void setImageFileNO(Integer imageFileNO) {
+			this.imageFileNO = imageFileNO;
 		}
+		
 		public String getImageFileName() {
 			return imageFileName;
 		}
