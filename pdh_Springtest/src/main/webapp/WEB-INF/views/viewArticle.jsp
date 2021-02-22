@@ -125,7 +125,7 @@
 						</c:forEach>
 						 --%>
  						<tr>
-						   <td width=30 align="center">
+						   <td scope="row" width=30 align="center">
 						      글번호
 						   </td>
 						   <td >
@@ -136,11 +136,11 @@
 						   </td>
 						  </tr>
 						<tr>
-							<th scope="row">거래처명</th>
+							<td scope="row"  width=30 align="center">제목</td>
 							<td><input type="text" id="i_title" name="title" value="${article.title}" disabled/></td>
 						</tr>
 						<tr>
-							<th scope="row">내용</th>
+							<td scope="row" width=30 align="center">내용</td>
 							<td colspan="3"><textarea id="i_content" name="content" cols="90" rows="10" disabled>${article.content}</textarea></td>
 						</tr>
 				<%-- 
@@ -191,14 +191,14 @@
 					
 					 <tr id="tr_btn_modify"  align="center">
 	  				 <td colspan="2">
-	  				 <input id="modBtn" type=button value="수정반영하기">
+	  			<!-- 	 <input id="modBtn" type=button value="수정반영하기"> -->
 	      			<!--  <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  > --> <!--  frmArticle: 전송하는 form의 name -->
-           				<input type=button value="취소" onClick="backToList(frmArticle)">
+           				<input type=hidden value="취소" onClick="backToList(frmArticle)">
 	   				</td> 
 					 </tr>
 					<p class="btn_set">
-						<button type="button" class="btns btn_st1 btn_mid">저장</button>
-						<button type="button" id="list-btn" class="btns btn_bdr1 btn_mid">취소</button>
+						<input id="modBtn" type="button" value="저장" class="btns btn_st1 btn_mid"/>
+						<button type="button" id="list-btn" class="btns btn_bdr1 btn_mid">뒤로</button>
 						
 						
 				<!-- 
@@ -206,14 +206,13 @@
 				쉬운 가능입니다.
 				 -->		
 				<tr id="tr_btn">
-				<c:if test="${member.id == article.id || member.id == 'admin'}">
-				 <input id="button1" type=button value="수정하기">  
-				 <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
-					 </c:if>
+				<%-- <c:if test="${member.id == article.id || member.id == 'admin'}">  --%>
+				 <input  type=button id="button1" value="수정">  
+				 <input type=button value="삭제" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
+				<%-- 	  </c:if>  --%>
 					    </tr>
 					    
-					    
-					</p>		
+						
 				</div>
 			</div>
 		</div>
@@ -230,10 +229,7 @@ $(function() {
 	
 	
 	
-	
-	
-	
-	
+	var chk_send = 0;
 	
 	$("#button1").click(function(){ 
 		//alert("버튼1을 누르셨습니다.");
@@ -252,9 +248,13 @@ $(function() {
 	var modifyBtn = $("#modBtn"); //jQuery에서 돔객체를 지목 하는 방법
 	
 	modifyBtn.click(function() { //클릭 했을때 생성되는 이벤트 처리
-		console.log("수정 반영버튼이 클릭됨!");
-		 //formElement.attr("action" , "${contextPath}/board/modArticle.do");//attr(속성 , 변경값 ) 태그의 내부 속성을 변경
-		 //formElement.attr("method", "get"); 
+		console.log("수정 버튼이 클릭됨!");
+	
+		//if(var chk_send == 0) {
+			
+			//return false;
+		//}
+		
 		 $("#frm").submit();
 	});
 	 

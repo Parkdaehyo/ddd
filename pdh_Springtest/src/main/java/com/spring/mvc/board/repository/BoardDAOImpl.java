@@ -26,7 +26,7 @@ public class BoardDAOImpl implements BoardDAO {
 //		List<ArticleVO> articlesList = articlesList = sqlSession.selectList("mapper.board.selectAllArticlesList");
 //		return articlesList;
 //	}
-	
+//	
 	@Override
 	public List selectImageFileList3() throws DataAccessException {
 		List<ImageVO> imageFileList = null;
@@ -40,17 +40,6 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 		sqlSession.update("mapper.board.updateArticle", articleMap);
 		System.out.println("BoardDAOImpl의 aritlceMap" + articleMap);
 		
-		//int imageFileNO = selectNewImageFileNO();
-	
-		
-		int _articleNO = (int) articleMap.get("articleNO"); //정상적으로 글번호 가져왔고.
- 
-
-		System.out.println("글번호다 _articleNO: " + _articleNO);
-//		      
-        //articleMap  = (Map) selectImageFileNO(_articleNO);
-		
-		
 		//List<ImageVO> 
 		List<ImageVO> imageFileList = (List) articleMap.get("imageFileList"); 
 		
@@ -58,22 +47,27 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 		//imageFileList = (List) articleMap.get("imageFileList");//여기서 글번호에 따른 imageFileNO들이 정확히 리턴된다.
 		
 		 
-		 for(ImageVO imageVO : imageFileList) { // 팩트 1. imageFileList에 정상적으로 짱구와 고릴라가 넘어온다는것.
 		
-		String imageFileName = imageVO.getImageFileName();
-		int articleNO = imageVO.getArticleNO(); 
-		int imageFileNO = imageVO.getImageFileNO();
+		  for(ImageVO imageVO : imageFileList) { // 팩트 1. imageFileList에 정상적으로 짱구와 고릴라가
+		  //넘어온다는것.
 		  
-		 System.out.println("DAO까지 파일이름이 넘어왔는가?: " + imageFileName); //imageFileName의 객체가 2개가 넘어오는것을 확인했는데
-		 System.out.println("DAO:imageFileNO "+ imageFileNO); //36하고 //38
-		 System.out.println("DAO:articleNO " +articleNO); //41
-	
-		 }
+		  String imageFileName = imageVO.getImageFileName(); 
+		  int articleNO = imageVO.getArticleNO(); 
+		  int imageFileNO = imageVO.getImageFileNO();
+		  
+		  System.out.println("DAO까지 파일이름이 넘어왔는가?: " + imageFileName);
+		  System.out.println("DAO까지 글번호가 넘어왔는가?: " + articleNO); 
+		  System.out.println("DAO까지 이미지번호가 넘어왔는가?: " + imageFileNO); //imageFileName의
+		  ///객체가 2개가 넘어오는것을 확인했는데 System.out.println("DAO:imageFileNO "+ imageFileNO);
+		  //36하고 //38 System.out.println("DAO:articleNO " +articleNO); //41
+		  
+		  }
 		 
 		 //imageFileList = selectImageFileNO(_articleNO);
 		//sqlSession.update("mapper.board.updateImage", imageFileList); 원래꺼
 		 sqlSession.update("mapper.board.updateImage", articleMap); //팩트2. articleMap을 넘겨도 실제로 한개가 전부 수정이 될 뿐, 확실히 sql문까지 imageFileList으 객체 정보가 넘어간다는것.
-	}
+
+}
 	
 	/*
 	//글 수정문
@@ -140,6 +134,14 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 		
 	}
 	
+	public void deleteImageFile(int articleNO) throws DataAccessException {
+		
+		sqlSession.delete("mapper.board.deleteImageFile", articleNO);
+	}
+	
+	
+	
+	
 	//다중이미지
 	@Override
 	public List selectImageFileList(int articleNO) throws DataAccessException {
@@ -197,8 +199,8 @@ public void updateArticle(Map articleMap) throws DataAccessException {
 	@Override
 	public List selectImageFileNO(int articleNO) throws DataAccessException {
 		System.out.println("selectImageFileNO articleNO: " + articleNO);
-		List<ImageVO> aaaList = sqlSession.selectList("mapper.board.selectImageFileNO", articleNO);
-		return aaaList;
+		List<ImageVO> imageFileNO = sqlSession.selectList("mapper.board.selectImageFileNO", articleNO);
+		return imageFileNO;
 	}
 
 

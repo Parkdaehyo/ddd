@@ -3,6 +3,7 @@ package com.spring.mvc.board.model;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImageVO {
@@ -12,14 +13,13 @@ public class ImageVO {
 		private Date regDate;
 		private int articleNO;
 		
-	
-
-		public Integer getImageFileNO() {
+		public int getImageFileNO() {
 			return imageFileNO;
 		}
 		public void setImageFileNO(Integer imageFileNO) {
-			this.imageFileNO = imageFileNO;
+			this.imageFileNO = imageFileNO.intValue();
 		}
+		
 		
 		public String getImageFileName() {
 			return imageFileName;
@@ -45,6 +45,8 @@ public class ImageVO {
 			return articleNO;
 		}
 		public void setArticleNO(int articleNO) {
+			
+						
 			this.articleNO = articleNO;
 		}
 	
